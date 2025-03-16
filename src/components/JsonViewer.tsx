@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 // Example JSON file import (If in 'public', use fetch instead)
 import jsonData from '../../public/data.json';
 
+const isEmptyObject = (obj: object) => {
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
+};
 
 // Example JSON file import (If in 'public', use fetch instead)
 // Recursive component to display nested JSON structure
@@ -61,7 +64,11 @@ const JsonViewer: React.FC = () => {
                                         <span>—</span>
                                     )}
                                     <strong>{key}:</strong>
-                                    {isExpanded ? renderJson(data[key], currentKey) : ' ...'}
+                                    {isExpanded ? (
+                                        renderJson(data[key], currentKey)
+                                    ) : (
+                                        <span>{typeof data[key] === 'object' ? isEmptyObject(data[key]) ? '{}' : '...' : data[key]}</span>
+                                    )}
                                 </div>
                             </li>
                         );
@@ -76,7 +83,7 @@ const JsonViewer: React.FC = () => {
 
     return (
         <div>
-            <h1>JSON Viewer</h1>
+            <h1>OPUS KG</h1>
             <div>{data ? renderJson(data) : <p>Loading...</p>}</div>
         </div>
     );
