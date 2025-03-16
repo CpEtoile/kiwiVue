@@ -1,0 +1,272 @@
+{
+  "The colors": {
+    "Color can have rgb definition from Poolparty": {
+      "Definition imported to KG Color enrichment": {
+        "Product has color definition": {
+          "distance calculated so that product having color rgb are attracted to the nearest color concept": "Done"
+        }
+      }
+    }
+  },
+  "Languages informatiques": {
+    "Python": {},
+    "Typescript": {}
+  },
+  "KG": {
+    "KgNode": {},
+    "KgRelations": {},
+    "KG Quality": {
+      "Relation Evaluation": {
+        "PipeLine LLM1": {
+          "actions": {
+            "delete relations": [
+              "we can deleted relations from table 'to_delete' because they will not affect recommandations. average ranking 30"
+            ],
+            "AB test": [
+              "ongoing",
+              "need to have relations having more impact"
+            ]
+          },
+          "detected types": [
+            "Evaluation",
+            "ReEvaluation",
+            "Customer View",
+            "Salesman View"
+          ]
+        },
+        "PipeLine LLM2 Too broad relations": "Good relations but not precise enough (Too broad)",
+        "PipeLine LLM3 Change relation type": "Good relations but type can be better (more or less precise )"
+      },
+      "Alt Label Evaluation": {
+        "Pipeline 1": {
+          "Evaluate if good or bad alt label": {
+            "different types": [
+              "Not the same",
+              "Too large",
+              "Too specific",
+              "Just add a usage",
+              "Just add a destination",
+              "It is a brand",
+              "A famous brand becomes alt label"
+            ]
+          }
+        },
+        "Pipeline 2": {
+          "Type is 'Just add a destination'": {
+            "The concept has well the destination": {
+              "if the concept has no children": {
+                "possible solution": [
+                  "no need of the alt label, remove it",
+                  "no impact on search"
+                ]
+              },
+              "if the concept has children": {
+                "problem": "destination may not applicable to all children",
+                "if OK for all children": {
+                  "possible solution": [
+                    "no need of the alt label, remove it",
+                    "no impact on search"
+                  ]
+                },
+                "if not OK for certain children": {
+                  "possible solution": [
+                    "remove alt label, because it is not correct",
+                    "remove destination, because it is not correct",
+                    "add destination to good children concept"
+                  ]
+                }
+              }
+            },
+            "The concept has not the destination": {
+              "general info": [
+                "should add the destination to the concept",
+                "but how to know if certain sub concept fit destination, but other sub concepts not"
+              ],
+              "for question but how to know if certain sub concept fit destination, but other sub concepts not": {
+                "Plaque de plâtre has sub concept": [
+                  "Demi plaque de plâtre",
+                  "Plaque de plâtre avec isolant",
+                  "Plaque de plâtre pour plafond",
+                  "Plaque de plâtre hydrofuge"
+                ],
+                "Plaque de plâtre and sub concept has explanation": "A \"Plaque de plâtre\" (plasterboard) is a building material used for walls and ceilings. It comes in several variations including smaller \"Demi plaque de plâtre\" (half-size plasterboard), \"Plaque de plâtre avec isolant\" (insulated plasterboard) which combines plasterboard with insulation, specialized \"Plaque de plâtre pour plafond\" (ceiling plasterboard) designed for ceiling applications, and moisture-resistant \"Plaque de plâtre hydrofuge\" (water-resistant plasterboard) suitable for damp environments like bathrooms.",
+                "llm prompt becomes": "The product set concept \"Plaque de plâtre\" with definition of \"which is a building material used for walls and ceilings. It comes in several variations including smaller \"Demi plaque de plâtre\" (half-size plasterboard), \"Plaque de plâtre avec isolant\" (insulated plasterboard) which combines plasterboard with insulation, specialized \"Plaque de plâtre pour plafond\" (ceiling plasterboard) designed for ceiling applications, and moisture-resistant \"Plaque de plâtre hydrofuge\" (water-resistant plasterboard) suitable for damp environments like bathrooms.\"\nIS OK if we assign \"Mur\" as its destination concept.\nResponse in JSON. Field \"SUITABLE\", \"EXPLANATION\"",
+                "response becomes": {
+                  "SUITABLE": false,
+                  "EXPLANATION": "While \"Mur\" (wall) is a common application area for plasterboard (\"Plaque de plâtre\"), assigning it as the *sole* destination concept is too restrictive.  The provided definition clearly indicates other uses and variations:\n\n* **Plafonds (Ceilings):**  Specifically mentioned with \"Plaque de plâtre pour plafond\".\n* **Other applications requiring specific types:** The definition includes insulated and water-resistant plasterboard, implying uses beyond basic walls, such as insulation projects or bathroom renovations.\n\nTherefore, \"Mur\" doesn't encompass the full range of applications for the \"Plaque de plâtre\" product set. A broader destination concept, or multiple destination concepts, would be more appropriate.  For example, a category like \"Matériaux de construction\" (Construction Materials), or a combination of \"Murs et Cloisons\" (Walls and Partitions) and \"Plafonds\" (Ceilings), would be better suited."
+                },
+                "if it is not suitable to add as destination, what to do next": [
+                  "check is it is OK to assign destination to the suitable subconcepts?",
+                  "remove alt label containing the wrong destination?"
+                ]
+              }
+            },
+            "A sub concept of the concept has the destination": {
+              "possible solution": "Alt label too broad, should delete alt label, and be put to the sub concept, or is already clear with the subconcept"
+            }
+          }
+        }
+      }
+    },
+    "KG Opus Interface": {
+      "KG Main page": {
+        "page having trees": {
+          "Charged once all with back api": {}
+        }
+      },
+      "KG Concept visualization page": {
+        "Overview": [
+          "the labels",
+          "definition"
+        ],
+        "Relations": [
+          "sub tree",
+          "4 cross sale relations",
+          "destination",
+          "feature"
+        ],
+        "Products": "Done",
+        "Merchandising": {
+          "managed by category": [
+            "criteria choice"
+          ]
+        }
+      }
+    },
+    "KG Concept Enrichment With Products": {
+      "Enriched by Color Distance": {},
+      "Enriched by Population Rules": {},
+      "Enriched by Attribute Values": [
+        "Brands",
+        "Color values",
+        "Other to verify"
+      ],
+      "Enriched by Notion To Verify": {},
+      "Enriched by Destination To Verify": {}
+    },
+    "KG Notions": "To verify",
+    "KG is used By": {
+      "Opus Search": {
+        "Kg Concept": {},
+        "Kg Concept Hierarchy": {},
+        "Others to verify (Products?)": {},
+        "Relations Destination, Is For": {}
+      },
+      "Opus Recommandation": {
+        "Semantic search": {
+          "by 4 cross sale relations": [
+            "accessory for",
+            "need for installation",
+            "complementary",
+            "consumable"
+          ]
+        }
+      }
+    },
+    "KG Data Subject": {
+      "MachineLearningPipe": {
+        "BlackList": {},
+        "PopulationRule": {}
+      },
+      "DataPipe": {
+        "ConceptImportance": {},
+        "DefinitionCreation": {
+          "url": "https://github.com/adeo/opus--knowledgegraph-analytics/blob/origin/feat/taxo-tr-async-er/taxonomy/definitions/generate_def_v3.py"
+        },
+        "EnglishPrefLabel": {}
+      },
+      "GitHubs": {
+        "ml": "",
+        "analyse": "https://github.com/adeo/opus--knowledgegraph-analytics"
+      }
+    },
+    "KG other usage": "to be discovered",
+    "Entity Recognizer": {
+      "make use of hierarchy in definition": {
+        "ex": {
+          "query": "colonnette pour chauffer",
+          "result": "Accessoire pour chauffage",
+          "not_result": "Colonnette de radiateur"
+        }
+      },
+      "get from vector search": {
+        "ex": [
+          "tondeuse automatique",
+          "baignoire au coin"
+        ]
+      }
+    },
+    "Presentation de Fabien": {}
+  },
+  "DATA": {
+    "Machine Learning": {
+      "Prefect": {
+        "to orchestrate": {
+          "with tasks pipeline": "how to do to make it remote"
+        }
+      },
+      "ZenML": "To Verify",
+      "Hydra": "To make Dependency injection with configs",
+      "DPT": "To make Big query tables automatically",
+      "uv": "package manager",
+      "poetry": "package manager"
+    },
+    "Vecteur": [
+      "LanceDB",
+      "Neo4j"
+    ],
+    "LLM": {
+      "Techniques engineerings": {
+        "chain of thought": {
+          "how to use": "to verify"
+        }
+      },
+      "GCP Gemini": {
+        "GenerationConfig": {
+          "response_schema": {}
+        }
+      },
+      "Embedding tech": {
+        "Generative AI": {
+          "embedding task type": "https://cloud.google.com/vertex-ai/generative-ai/docs/embeddings/task-types#retrieve_information_from_texts"
+        }
+      },
+      "Mistral AI": {
+        "fine tuning model": {}
+      },
+      "DeepSeek": {},
+      "OpenAi": {}
+    },
+    "Modals": {
+      "embedding models": {}
+    },
+    "Other DATA Projects": {
+      "The Slack Weeks": {
+        "Plan de Vente": "https://github.com/adeo/slack-week-data-hackathon-sp-2025-q1/tree/main/adeo-knowledge-extraction",
+        "KUMO": "https://github.com/adeo/slack-week-data-hackathon-sp-2025-q1/tree/main/kumo-ai-cka",
+        "catch phrase": "https://github.com/adeo/slack-week-data-hackathon-sp-2025-q1/tree/main/catch-phrase"
+      },
+      "aaai-dashboard": {
+        "git": "https://github.com/adeo/aaai-dashboard/tree/rag-plan-de-vente",
+        "turbine": "https://dashboard.aaai.dev.adeo.com/RAG_Plan_De_Vente"
+      }
+    },
+    "Resources": {
+      "huggingface": {},
+      "kaggle": "https://www.kaggle.com/models/keras/bert"
+    }
+  },
+  "DataBase": [
+    "Neo4j",
+    "LanceDb",
+    "MongoDb",
+    "https://kuzudb.com/"
+  ],
+  "Poolparty": {
+    "Skos": {},
+    "To be internal later": {
+      "should be common to be inclusive for other UNIT (Decatelon)": {},
+      "Some plans": {}
+    }
+  }
+}
