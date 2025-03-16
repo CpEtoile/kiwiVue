@@ -1,9 +1,68 @@
+/* Remove default list styles and add custom spacing */
 ul {
   list-style-type: none;
-  padding-left: 20px;
+  padding-left: 0;
+  margin: 0;
 }
 
+/* Style list items */
 li {
-  margin: 5px 0;
+  margin: 8px 0;
+  padding: 5px 0;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  border-left: 2px solid transparent; /* Add subtle border for indentation */
+  transition: border-left 0.3s ease, padding-left 0.3s ease; /* Smooth transition for expanding */
 }
 
+/* Add indentation for nested items */
+li > div {
+  margin-left: 20px;
+}
+
+/* Style the expand/collapse button */
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  margin-right: 10px;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+button:hover {
+  color: #0056b3;
+}
+
+/* Change appearance of list item when expanded */
+li.expanded {
+  padding-left: 20px;
+  border-left: 2px solid #007bff;
+}
+
+/* Highlight the key text */
+strong {
+  color: #007bff;
+  font-weight: bold;
+}
+
+/* Style for the leaf (end) nodes with no nested structure */
+span {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Add style for leaf nodes using bullet points */
+.leaf-node {
+  color: #777;
+  font-size: 16px;
+  margin-right: 5px;
+}
+
+/* Optional: Adding a subtle hover effect for list items */
+li:hover {
+  background-color: #f9f9f9;
+}

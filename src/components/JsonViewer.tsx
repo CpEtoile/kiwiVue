@@ -14,7 +14,6 @@ const JsonViewer: React.FC = () => {
     const [expandedKeys, setExpandedKeys] = useState<Set<string>>(new Set()); // Track expanded keys
 
     useEffect(() => {
-        // Load the JSON file (can use fetch if it's external)
         setData(jsonData);
     }, []);
 
@@ -32,22 +31,19 @@ const JsonViewer: React.FC = () => {
 
     const renderJson = (data: any, parentKey: string = '') => {
         if (Array.isArray(data)) {
-            // Handle array values
             return (
                 <ul>
-                    {data.map((item, index) => (
-                        <li key={index}>
-                            {typeof item === 'object' ? (
-                                renderJson(item, `${parentKey}[${index}]`) // Recursively render array items
-                            ) : (
-                                <span>{item}</span>
-                            )}
-                        </li>
-                    ))}
+                    {data.map((item, index) => {
+                        const currentKey = `${parentKey}[${index}]`;
+                        return (
+                            <li key={index}>
+                                {typeof item === 'object' ? renderJson(item, currentKey) : <span>{item}</span>}
+                            </li>
+                        );
+                    })}
                 </ul>
             );
         } else if (typeof data === 'object' && data !== null) {
-            // Handle object values
             return (
                 <ul>
                     {Object.keys(data).map((key) => {
@@ -56,18 +52,18 @@ const JsonViewer: React.FC = () => {
                         return (
                             <li key={currentKey}>
                                 <div>
-                                    {typeof data[key] === 'object' ? (
+                                    {typeof data[key] === 'object' ? isEmptyObject(data[key]) ? '' : (
                                         <button onClick={() => toggleExpand(currentKey)}>
                                             {isExpanded ? '[-]' : '[+]'}
                                         </button>
                                     ) : (
-                                        <span>—</span>
+                                        <span>▶</span>
                                     )}
                                     <strong>{key}:</strong>
                                     {isExpanded ? (
                                         renderJson(data[key], currentKey)
                                     ) : (
-                                        <span>{typeof data[key] === 'object' ? isEmptyObject(data[key]) ? '{}' : '...' : data[key]}</span>
+                                        <span>{typeof data[key] === 'object' ? isEmptyObject(data[key]) ? '{}' : '...' : ' ' + data[key].toString()}</span>
                                     )}
                                 </div>
                             </li>
@@ -77,6 +73,9 @@ const JsonViewer: React.FC = () => {
             );
         } else {
             // If it's a simple value like string, number, or boolean
+            console.log('If it\'s a simple value like string, number, or boolean');
+            console.log(parentKey);
+            console.log(data);
             return <span>{data}</span>;
         }
     };
